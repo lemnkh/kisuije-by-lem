@@ -24,19 +24,31 @@ body {
     padding: 10px;
 }
 
+.fin {
+    margin: 0 auto;
+    width: 100%;
+    padding: 10px;
+
+    text-align: center;
+}
+
 h1 {
     font-size: 3rem;
     font-family: 'Parisienne', cursive;
     color: white;
 }
 
-#start-button {
+#start-button, #continue-button, #restart-button {
     background: white;
     color: black;
     font-size: 1.5rem;
     font-family: 'Parisienne', cursive;
     border: 0 solid;
     padding: 8px;
+}
+
+#continue-button.hide {
+    diplay: none;
 }
 
 /* header */
@@ -58,8 +70,14 @@ h3 {
 }
 
 section {
-    display: flex;
+    display:none;
 }
+section.active {display:flex;}
+
+#message {
+    padding-bottom: 38px;
+}
+
 
 .qui {
     justify-content: left;
@@ -70,14 +88,14 @@ section {
 
 .fond-playboard {
     width: 100%;
-    background: url(./françois.jpg); /* IL ME FAUT POUVOIR CHANGER CETTE IMAGE */
+    background-image: none; /* IL ME FAUT POUVOIR CHANGER CETTE IMAGE */
     background-size: cover;
     background-repeat: no-repeat;
 }
 
 .cadre-photo {
     justify-content: center;
-    background: url(./cadre.png); 
+    background: url("images/cadre.png"); 
     width: 100%;
     background-size: contain;
     background-repeat: no-repeat;

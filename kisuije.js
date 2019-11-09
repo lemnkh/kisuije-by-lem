@@ -1,40 +1,62 @@
 var $cases = [...document.getElementsByClassName('case')];
+var $sections = [...document.querySelectorAll('section')];
 var $input = document.getElementById('guess');
 
-var peopleToGuess = [p1,p2,p3,p4,p5,p6];
+var $fondPlayboard = document.querySelector('.fond-playboard');
+
+var $start = document.getElementById('start-button');
+$start.onclick = function () {
+    console.log('starting');
+    
+    startGame();
+
+    $sections[0].classList.remove('active');
+    $sections[1].classList.add('active');
+  };
 
 var p1 = {
-    image: 'url(./../images/françois.jpg)',
+    image: "url('images/françois.jpg')",
     nom: 'François Hollande'
+
+ // $background.style.backgroundImage = 
 }
 
 var p2 = {
-    image: 'url(./../images/angela.jpg)',
+    image: "url('images/angela.png')",
     nom: 'Angela Merkel' 
 }
 
-var p3= {
-    image: 'url(./../images/whitney.jpg)',
+var p3 = {
+    image: "url('images/whitney.jpg')",
     nom: 'Whitney Houston' 
 }
 
 var p4 = {
-    image: 'url(./../images/mariah.jpg)',
+    image: "url('images/mariah.jpg')",
     nom: 'Mariah Carey' 
 }
 
-var p5= {
-    image: 'url(./../images/obama.png)',
+var p5 = {
+    image: "url('images/obama.png')",
     nom: 'Barack Obama' 
 }
 
-// révéler toute l'image à la fin
-// rajouter autres personnes à deviner
+var peopleToGuess = [];
+
+peopleToGuess.push(p1);
+peopleToGuess.push(p2);
+peopleToGuess.push(p3);
+peopleToGuess.push(p4);
+peopleToGuess.push(p5);
+
+
 // proposer de continuer ou arrêter jeu dans boîte de dialogue
 // page finale de score
 
 var time = 60;
-var $score = 6000;
+var $scoreFinal = 0;
+var $score = $scoreFinal + 6000;
+
 function gameTimer() {
     if ((time > 0) && ($score > 0)) {
         time--;
@@ -67,11 +89,44 @@ function revealAll() {
 
 function guessMe() {
 
+    var i = Math.floor(Math.random()*peopleToGuess.length);
+    
+    $fondPlayboard.style.backgroundImage = peopleToGuess[i].image;
+
     $input.addEventListener("input", function(event) {
         event.preventDefault(); //prevent pour qu'il prenne en compte le enter que sur le input
-        var i = Math.floor(Math.random()*$cases.length);
-        if ($input.value === peopleToGuess[i]) {
-             alert("Bien joué ! T'as " + $score + " points");
+        // if ($input.value === peopleToGuess[i].nom) {
+        //      alert("Bien joué ! T'as " + $score + " points");
+        // }
+
+        if ($input.value === peopleToGuess[i].nom) {
+            alert("Bien joué ! T'as " + $score + " points");
+            // if (window.confirm("Bien joué ! Cliquez sur OK pour continuer.")) { 
+            //     window.location.reload();
+            // }
+
+            $sections[1].classList.remove('active');
+            $sections[2].classList.add('active');
+
+            $scoreFinal = Number(document.getElementById("score-final").innerHTML);
+           
+            $scoreFinal = $scoreFinal + Number($score);
+            
+            document.getElementById("score-final").innerHTML = $scoreFinal;
+
+            document.getElementById("message").innerHTML = "Bien joué, t'as l'œil toi !";
+        }
+        
+        if ((time === 0) && ($input.value != peopleToGuess[i].nom)) {
+            $sections[1].classList.remove('active');
+            $sections[2].classList.add('active');
+
+            var $scoreFinal = document.getElementById("score-final").innerHTML;
+            document.getElementById("score-final").innerHTML = $scoreFinal;
+
+            document.getElementById("message").innerHTML = "Oh-oh. Bon, peut-être une prochaine fois ?"
+
+            //cacher continuer et montrer recommencer
         }
     })
 }
@@ -81,7 +136,27 @@ function startGame () {
     guessMe();
 }
 
+var $start = document.getElementById('start-button');
+$start.onclick = function () {
+    console.log('starting');
+    
+    startGame();
 
-startGame();
+    $sections[0].classList.remove('active');
+    $sections[1].classList.add('active');
+  };
 
+var $continue = document.getElementById('continue-button');
+$continue.onclick = function () {
+    startGame();
+
+    $sections[0].classList.remove('active');
+    $sections[2].classList.remove('active');
+    $sections[1].classList.add('active');
+}
+
+// function startOver () {
+//     $scoreFinal = 0;
+
+// }
 
