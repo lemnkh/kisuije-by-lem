@@ -1,7 +1,32 @@
 var $cases = [...document.getElementsByClassName('case')];
 var $input = document.getElementById('guess');
 
-var peopleToGuess = ['François Hollande'];
+var peopleToGuess = [p1,p2,p3,p4,p5,p6];
+
+var p1 = {
+    image: 'url(./../images/françois.jpg)',
+    nom: 'François Hollande'
+}
+
+var p2 = {
+    image: 'url(./../images/angela.jpg)',
+    nom: 'Angela Merkel' 
+}
+
+var p3= {
+    image: 'url(./../images/whitney.jpg)',
+    nom: 'Whitney Houston' 
+}
+
+var p4 = {
+    image: 'url(./../images/mariah.jpg)',
+    nom: 'Mariah Carey' 
+}
+
+var p5= {
+    image: 'url(./../images/obama.png)',
+    nom: 'Barack Obama' 
+}
 
 // révéler toute l'image à la fin
 // rajouter autres personnes à deviner
@@ -44,7 +69,8 @@ function guessMe() {
 
     $input.addEventListener("input", function(event) {
         event.preventDefault(); //prevent pour qu'il prenne en compte le enter que sur le input
-        if ($input.value === peopleToGuess[0]) {
+        var i = Math.floor(Math.random()*$cases.length);
+        if ($input.value === peopleToGuess[i]) {
              alert("Bien joué ! T'as " + $score + " points");
         }
     })
