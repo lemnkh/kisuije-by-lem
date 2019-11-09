@@ -69,6 +69,17 @@ function gameTimer() {
         }
         if (time === 0) {
             revealAll();
+            gameOver();
+            $sections[1].classList.remove('active');
+            $sections[2].classList.add('active');
+
+            var $scoreFinal = document.getElementById("score-final").innerHTML;
+            document.getElementById("score-final").innerHTML = $scoreFinal;
+
+            document.getElementById("message").innerHTML = "Oh-oh. Bon, peut-être une prochaine fois ?"
+
+            document.getElementById("continue-button").classList.add('hide');
+            
         }
     }
 }
@@ -84,6 +95,13 @@ function revealAll() {
     for (var i=0; i<$cases.length; i++) {
         var $case = $cases[i];
         $case.classList.add('revealed');
+    }
+}
+
+function hideAll() {
+    for (var i=0; i<$cases.length; i++) {
+        var $case = $cases[i];
+        $case.classList.remove('revealed');
     }
 }
 
@@ -148,15 +166,46 @@ $start.onclick = function () {
 
 var $continue = document.getElementById('continue-button');
 $continue.onclick = function () {
-    startGame();
 
+    gameOver()
+}
+
+function gameOver() {
+
+    $input.value = "";
+    $cases = [...document.getElementsByClassName('case')];
+    hideAll();
+
+    startGame();
+    
     $sections[0].classList.remove('active');
     $sections[2].classList.remove('active');
     $sections[1].classList.add('active');
 }
 
-// function startOver () {
-//     $scoreFinal = 0;
+var $restart = document.getElementById('restart-button');
+$restart.onclick = function () {
 
-// }
+    startOver()
+
+}
+
+function startOver () {
+
+    $scoreFinal = 0;
+    time = 60;
+    $score = $scoreFinal + 6000;
+
+    $input.value = "";
+    $cases = [...document.getElementsByClassName('case')];
+    hideAll();
+
+    startGame();
+    
+    $sections[1].classList.remove('active');
+    $sections[2].classList.remove('active');
+    $sections[0].classList.add('active');
+
+
+ }
 
